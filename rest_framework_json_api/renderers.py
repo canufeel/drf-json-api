@@ -449,9 +449,9 @@ class JsonApiMixin(object):
         if is_related_many(field):
             items = resource[field_name]
         else:
-            items = [resource[field_name]]
-            if items is [None]:
+            if resource[field_name] is None and field.required = False:
                 return {"linked_ids": {}, "links": {}, "linked": "null"}
+            items = [resource[field_name]]         
 
         obj_ids = []
 
