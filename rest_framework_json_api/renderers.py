@@ -450,7 +450,7 @@ class JsonApiMixin(object):
             items = resource[field_name]
         else:
             if resource[field_name] is None and field.required == False:
-                return {"linked_ids": {}, "links": {}, "linked": "null"}
+                return {"linked_ids": {}, "links": "null", "linked": {}}
             items = [resource[field_name]]         
 
         obj_ids = []
@@ -591,8 +591,6 @@ class JsonApiMixin(object):
         return model_from_obj(obj)
 
     def update_nested(self, existing_linked, u):
-        if u != {}:
-            raise Exception
         for k, new_values in u.items():
             if k in existing_linked:
                 # The dictionary already exists, so we need to check
