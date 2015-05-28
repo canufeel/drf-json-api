@@ -450,6 +450,8 @@ class JsonApiMixin(object):
             items = resource[field_name]
         else:
             items = [resource[field_name]]
+            if items is [None]:
+                return {"linked_ids": {}, "links": {}, "linked": "null"}
 
         obj_ids = []
 
