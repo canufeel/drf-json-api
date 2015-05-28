@@ -1,5 +1,6 @@
 from django.utils.encoding import force_text
 from django.utils.text import slugify
+from django.utils import translation
 
 try:
     from rest_framework.serializers import ManyRelatedField
@@ -58,8 +59,8 @@ def model_to_resource_type(model):
     '''
     if model is None:
         return "data"
-    raise Exception
-    return force_text(model._meta.verbose_name_plural)
+    with translation.override('en'):
+        return force_text(model._meta.verbose_name_plural)
 
 #
 # String conversion
