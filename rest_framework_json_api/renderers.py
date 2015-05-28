@@ -449,7 +449,7 @@ class JsonApiMixin(object):
         if is_related_many(field):
             items = resource[field_name]
         else:
-            if resource[field_name] is None and field.required = False:
+            if resource[field_name] is None and field.required == False:
                 return {"linked_ids": {}, "links": {}, "linked": "null"}
             items = [resource[field_name]]         
 
