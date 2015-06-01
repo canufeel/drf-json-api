@@ -370,12 +370,13 @@ class JsonApiMixin(object):
         raise Exception
         for field_name, field in six.iteritems(fields):
             converted = None
-
+            # convert ids
             if field_name in self.convert_by_name:
                 converter_name = self.convert_by_name[field_name]
                 converter = getattr(self, converter_name)
                 converted = converter(resource, field, field_name, request)
             else:
+                # convert relations
                 related_field = get_related_field(field)
 
                 for field_type, converter_name in \
@@ -394,7 +395,8 @@ class JsonApiMixin(object):
                                             converted.get('linked', {}))
                 meta.update(converted.get("meta", {}))
             else:
-                data[field_name] = resource[field_name]
+                # convert common fields
+                data['attributes'][field_name] = resource[field_name]
 
         return {
             'data': data,
