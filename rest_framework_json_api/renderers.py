@@ -331,7 +331,7 @@ class JsonApiMixin(object):
             item = converted.get('data', {})
             linked_ids = converted.get('linked_ids', {})
             if linked_ids:
-                item["links"] = linked_ids
+                item["relationships"] = linked_ids
             items.append(item)
 
             links.update(converted.get('links', {}))
@@ -358,7 +358,7 @@ class JsonApiMixin(object):
 
     def convert_resource(self, resource, data, request):
         fields = self.fields_from_resource(resource, data)
-
+        raise Exception
         if not fields:
             raise WrapperNotApplicable('Items must have a fields attribute.')
 
