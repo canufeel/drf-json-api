@@ -396,6 +396,8 @@ class JsonApiMixin(object):
                 meta.update(converted.get("meta", {}))
             else:
                 # convert common fields
+                if not 'attributes' in data:
+                    data['attributes'] = self.dict_class()
                 data['attributes'][field_name] = resource[field_name]
 
         return {
