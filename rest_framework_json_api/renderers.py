@@ -329,9 +329,9 @@ class JsonApiMixin(object):
         for resource in resources:
             converted = self.convert_resource(resource, data, request)
             item = converted.get('data', {})
-            linked_ids = converted.get('linked_ids', {})
-            if linked_ids:
-                item["relationships"] = linked_ids
+            relationships = converted.get('linked_ids', {})
+            if relationships:
+                item["relationships"] = relationships
             items.append(item)
 
             links.update(converted.get('links', {}))
@@ -343,6 +343,10 @@ class JsonApiMixin(object):
             wrapper['data'] = items
         else:
             wrapper['data'] = items[0]
+
+        # name the top level resource type
+        for obj in wrapper['data']:
+            obj['type'] = resource_type
 
         if links:
             links = self.prepend_links_with_name(links, resource_type)
@@ -358,7 +362,7 @@ class JsonApiMixin(object):
 
     def convert_resource(self, resource, data, request):
         fields = self.fields_from_resource(resource, data)
-        raise Exception
+        raise Exception 
         if not fields:
             raise WrapperNotApplicable('Items must have a fields attribute.')
 
