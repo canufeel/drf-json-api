@@ -340,9 +340,9 @@ class JsonApiMixin(object):
             meta.update(converted.get('meta', {}))
 
         if many:
-            wrapper[resource_type] = items
+            wrapper['data'] = items
         else:
-            wrapper[resource_type] = items[0]
+            wrapper['data'] = items[0]
 
         if links:
             links = self.prepend_links_with_name(links, resource_type)

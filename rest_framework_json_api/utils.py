@@ -60,7 +60,7 @@ def model_to_resource_type(model):
     '''
     if model is None:
         return "data"
-    return model.__name__
+    return model.__name__.lower()
 
 #
 # String conversion
