@@ -497,9 +497,11 @@ class JsonApiMixin(object):
             linked[resource_type].append(linked_obj)
 
         if is_related_many(field):
-            linked_ids[field_name] = obj_ids
+            linked_ids[field_name] = []
+            for obj_id in obj_ids:
+                linked_ids[field_name].append({'id':obj_id,'type':resource_type})
         else:
-            linked_ids[field_name] = obj_ids[0]
+            linked_ids[field_name] = {'id':obj_ids[0],'type':resource_type}
 
         return {"linked_ids": linked_ids, "links": links, "linked": linked}
 
