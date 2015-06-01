@@ -349,7 +349,7 @@ class JsonApiMixin(object):
             wrapper["links"] = links
 
         if linked:
-            wrapper["linked"] = linked
+            wrapper["included"] = linked
 
         if meta:
             wrapper["meta"] = meta
