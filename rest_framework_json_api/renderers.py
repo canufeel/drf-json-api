@@ -367,7 +367,7 @@ class JsonApiMixin(object):
         links = self.dict_class()
         linked = self.dict_class()
         meta = self.dict_class()
-        raise Exception
+
         for field_name, field in six.iteritems(fields):
             converted = None
             # convert ids
