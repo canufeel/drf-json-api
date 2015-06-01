@@ -351,7 +351,7 @@ class JsonApiMixin(object):
 
         if meta:
             wrapper["meta"] = meta
-
+        raise Exception
         return wrapper
 
     def convert_resource(self, resource, data, request):
