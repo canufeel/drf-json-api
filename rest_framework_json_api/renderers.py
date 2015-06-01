@@ -526,7 +526,7 @@ class JsonApiMixin(object):
                 link_data = None
 
             linked_ids[field_name] = link_data
-
+        raise Exception
         return {"linked_ids": linked_ids, "links": links}
 
     def handle_url_field(self, resource, field, field_name, request):
