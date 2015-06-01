@@ -309,7 +309,9 @@ class JsonApiMixin(object):
         view = renderer_context.get("view", None)
         request = renderer_context.get("request", None)
 
+        # returns model class from View
         model = self.model_from_obj(view)
+        # returns model name string
         resource_type = self.model_to_resource_type(model)
 
         if isinstance(data, list):
@@ -365,7 +367,7 @@ class JsonApiMixin(object):
         links = self.dict_class()
         linked = self.dict_class()
         meta = self.dict_class()
-
+        raise Exception
         for field_name, field in six.iteritems(fields):
             converted = None
 
@@ -393,7 +395,7 @@ class JsonApiMixin(object):
                 meta.update(converted.get("meta", {}))
             else:
                 data[field_name] = resource[field_name]
-        raise Exception
+
         return {
             'data': data,
             'linked_ids': linked_ids,
