@@ -524,9 +524,13 @@ class JsonApiMixin(object):
                 link_data = encoding.force_text(resource[field_name])
             else:
                 link_data = None
-
-            linked_ids[field_name] = link_data
-        raise Exception
+            if isinstance(link_data,str):
+                linked_ids[field_name] = {'id':link_data,'type':resource_type}
+            elif isinstance(link_data,list):
+                linked_ids[field_name] = []
+                for data_unit in link_data:
+                    linked_ids[field_name].append({'id':data_unit,'type':resource_type})
+        
         return {"linked_ids": linked_ids, "links": links}
 
     def handle_url_field(self, resource, field, field_name, request):
