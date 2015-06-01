@@ -393,7 +393,7 @@ class JsonApiMixin(object):
                 meta.update(converted.get("meta", {}))
             else:
                 data[field_name] = resource[field_name]
-
+        raise Exception
         return {
             'data': data,
             'linked_ids': linked_ids,

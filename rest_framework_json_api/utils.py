@@ -1,6 +1,7 @@
 from django.utils.encoding import force_text
 from django.utils.text import slugify
 from django.utils import translation
+import re
 
 try:
     from rest_framework.serializers import ManyRelatedField
@@ -51,16 +52,15 @@ def model_from_obj(obj):
 
 
 def model_to_resource_type(model):
-    '''Return the verbose plural form of a model name, with underscores
+    '''Return the model name
 
     Examples:
-    Person -> "people"
-    ProfileImage -> "profile_image"
+    Person -> "People"
+    ProfileImage -> "ProfileImage"
     '''
     if model is None:
         return "data"
-    with translation.override('en'):
-        return force_text(model._meta.verbose_name_plural)
+    return model.__name__
 
 #
 # String conversion
