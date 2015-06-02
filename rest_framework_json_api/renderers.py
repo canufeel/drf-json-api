@@ -403,7 +403,7 @@ class JsonApiMixin(object):
                 if not 'attributes' in data:
                     data['attributes'] = self.dict_class()
                 data['attributes'][field_name] = resource[field_name]
-        raise Exception
+        
         return {
             'data': data,
             'relationships': relationships,
@@ -502,7 +502,7 @@ class JsonApiMixin(object):
                 linked_ids[field_name]['data'].append({'id':obj_id,'type':resource_type})
         else:
             linked_ids[field_name]['data'] = {'id':obj_ids[0],'type':resource_type}
-
+        raise Exception
         return {"linked_ids": linked_ids, "links": links, "included": linked}
 
     def handle_related_field(self, resource, field, field_name, request):
