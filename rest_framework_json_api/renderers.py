@@ -323,7 +323,7 @@ class JsonApiMixin(object):
 
         items = []
         links = self.dict_class()
-        included = self.dict_class()
+        included = []
         meta = self.dict_class()
 
         for resource in resources:
@@ -353,7 +353,7 @@ class JsonApiMixin(object):
             wrapper["links"] = links
 
         if linked:
-            wrapper["included"] = linked
+            wrapper["included"] = included
 
         if meta:
             wrapper["meta"] = meta
@@ -369,7 +369,7 @@ class JsonApiMixin(object):
         data = self.dict_class()
         relationships = self.dict_class()
         links = self.dict_class()
-        included = self.dict_class()
+        included = []
         meta = self.dict_class()
 
         for field_name, field in six.iteritems(fields):
