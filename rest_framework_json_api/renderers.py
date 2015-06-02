@@ -489,10 +489,10 @@ class JsonApiMixin(object):
 
             links.update(field_links)
             included.append({
-                'id':obj_id,
+                'id':converted['data']['id'],
                 'type':resource_type,
-                'attributes':converted['attributes'],
-                'relationships':converted['relationships']
+                'attributes':converted['data']['attributes'],
+                'relationships':converted['data']['relationships']
                 })
             
         linked_ids[field_name] = {}
