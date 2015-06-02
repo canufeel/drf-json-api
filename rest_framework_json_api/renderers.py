@@ -491,7 +491,7 @@ class JsonApiMixin(object):
             new_obj = {
                 'id':converted['data']['id'],
                 'type':resource_type
-                })
+                }
             if 'attributes' in converted['data']:
                 new_obj['attributes'] = converted['data']['attributes']
 
