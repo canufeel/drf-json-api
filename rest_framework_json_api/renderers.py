@@ -488,12 +488,16 @@ class JsonApiMixin(object):
                 )
 
             links.update(field_links)
-            included.append({
+            new_obj = {
                 'id':converted['data']['id'],
-                'type':resource_type,
-                'attributes':converted['data']['attributes'],
-                'relationships':converted['data']['relationships']
+                'type':resource_type
                 })
+            if 'attributes' in converted['data']:
+                new_obj['attributes'] = converted['data']['attributes']
+
+            if 'relationships' in converted['data']:
+                new_obj['relationships'] = converted['data']['relationships']
+            included.append(new_obj)
             
         linked_ids[field_name] = {}
         if is_related_many(field):
