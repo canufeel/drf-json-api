@@ -611,20 +611,9 @@ class JsonApiMixin(object):
         return model_from_obj(obj)
 
     def update_nested(self, existing_linked, u):
-        for k, new_values in u.items():
-            if k in existing_linked:
-                # The dictionary already exists, so we need to check
-                # that all the already existing links in the dictionary
-                # aren't the same. If they aren't, add them.
-                for item in new_values:
-                    mapped_ids = map(lambda x: x['id'], existing_linked[k])
-                    if not item['id'] in mapped_ids:
-                        existing_linked[k].append(item)
-
-            else:
-                existing_linked[k] = new_values
-
-        return existing_linked
+        for item in u:
+            if item not in existing_linked:
+                existing_linked.append(item) 
 
 
 class JsonApiRenderer(JsonApiMixin, renderers.JSONRenderer):
