@@ -323,7 +323,7 @@ class JsonApiMixin(object):
 
         items = []
         links = self.dict_class()
-        linked = self.dict_class()
+        included = self.dict_class()
         meta = self.dict_class()
 
         for resource in resources:
@@ -335,8 +335,8 @@ class JsonApiMixin(object):
             items.append(item)
 
             links.update(converted.get('links', {}))
-            linked = self.update_nested(linked,
-                                        converted.get('linked', {}))
+            included = self.update_nested(included,
+                                        converted.get('included', {}))
             meta.update(converted.get('meta', {}))
 
         if many:
@@ -369,7 +369,7 @@ class JsonApiMixin(object):
         data = self.dict_class()
         relationships = self.dict_class()
         links = self.dict_class()
-        linked = self.dict_class()
+        included = self.dict_class()
         meta = self.dict_class()
 
         for field_name, field in six.iteritems(fields):
@@ -395,8 +395,8 @@ class JsonApiMixin(object):
                 data.update(converted.pop("data", {}))
                 relationships.update(converted.pop("linked_ids", {}))
                 links.update(converted.get("links", {}))
-                linked = self.update_nested(linked,
-                                            converted.get('linked', {}))
+                included = self.update_nested(included,
+                                            converted.get('included', {}))
                 meta.update(converted.get("meta", {}))
             else:
                 # convert common fields
@@ -408,7 +408,7 @@ class JsonApiMixin(object):
             'data': data,
             'relationships': relationships,
             'links': links,
-            'linked': linked,
+            'included': included,
             'meta': meta,
         }
 
@@ -460,7 +460,7 @@ class JsonApiMixin(object):
             items = resource[field_name]
         else:
             if resource[field_name] is None and field.required == False:
-                return {"linked_ids": {}, "linked": {}}
+                return {"linked_ids": {}, "included": {}}
             items = [resource[field_name]]         
 
         obj_ids = []
@@ -502,8 +502,8 @@ class JsonApiMixin(object):
                 linked_ids[field_name]['data'].append({'id':obj_id,'type':resource_type})
         else:
             linked_ids[field_name]['data'] = {'id':obj_ids[0],'type':resource_type}
-
-        return {"linked_ids": linked_ids, "links": links, "linked": linked}
+        raise Exception
+        return {"linked_ids": linked_ids, "links": links, "included": linked}
 
     def handle_related_field(self, resource, field, field_name, request):
         links = self.dict_class()
