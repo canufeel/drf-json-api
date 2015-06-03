@@ -395,8 +395,8 @@ class JsonApiMixin(object):
                 data.update(converted.pop("data", {}))
                 relationships.update(converted.pop("linked_ids", {}))
                 links.update(converted.get("links", {}))
-                included = self.update_nested(included,
-                                            converted.get('included', []))
+                self.update_nested(included,
+                    converted.get('included', []))
                 meta.update(converted.get("meta", {}))
             else:
                 # convert common fields
