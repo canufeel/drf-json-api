@@ -335,8 +335,8 @@ class JsonApiMixin(object):
             items.append(item)
 
             links.update(converted.get('links', {}))
-            included = self.update_nested(included,
-                                        converted.get('included', {}))
+            self.update_nested(included,
+                converted.get('included', {}))
             meta.update(converted.get('meta', {}))
 
         if many:
@@ -352,7 +352,7 @@ class JsonApiMixin(object):
             links = self.prepend_links_with_name(links, resource_type)
             wrapper["links"] = links
 
-        if linked:
+        if included:
             wrapper["included"] = included
 
         if meta:
